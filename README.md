@@ -1,2 +1,2 @@
 # UnityMultiplayerARPG_LegacyCharacterModels
-An old character model components which will be excluded from the CORE project, because it is not good to use (use PlayableCharacterModel instead.)
+An old character model components which still included in the CORE project, but it won't be developed to add new features but still being updated follow some CORE code changes.
