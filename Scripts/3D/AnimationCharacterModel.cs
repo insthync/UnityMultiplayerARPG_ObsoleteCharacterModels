@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -500,11 +501,14 @@ namespace MultiplayerARPG
             CrossFadeLegacyAnimation(CLIP_IDLE, 0f, WrapMode.Loop);
         }
 
-        public override void SetEquipWeapons(EquipWeapons equipWeapons)
+        public override void SetEquipWeapons(IList<EquipWeapons> selectableWeaponSets, byte equipWeaponSet, bool isWeaponsSheathed)
         {
-            base.SetEquipWeapons(equipWeapons);
+            base.SetEquipWeapons(selectableWeaponSets, equipWeaponSet, isWeaponsSheathed);
             SetupComponent();
-            SetClipBasedOnWeapon(equipWeapons);
+            if (isWeaponsSheathed || selectableWeaponSets == null || selectableWeaponSets.Count == 0)
+                SetClipBasedOnWeapon(new EquipWeapons());
+            else
+                SetClipBasedOnWeapon(selectableWeaponSets[equipWeaponSet]);
         }
 
         protected void SetClipBasedOnWeapon(EquipWeapons equipWeapons)
