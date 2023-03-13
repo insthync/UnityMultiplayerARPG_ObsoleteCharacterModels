@@ -506,9 +506,15 @@ namespace MultiplayerARPG
             base.SetEquipWeapons(selectableWeaponSets, equipWeaponSet, isWeaponsSheathed);
             SetupComponent();
             if (isWeaponsSheathed || selectableWeaponSets == null || selectableWeaponSets.Count == 0)
+            {
                 SetClipBasedOnWeapon(new EquipWeapons());
+            }
             else
+            {
+                if (equipWeaponSet >= selectableWeaponSets.Count)
+                    equipWeaponSet = (byte)(selectableWeaponSets.Count - 1);
                 SetClipBasedOnWeapon(selectableWeaponSets[equipWeaponSet]);
+            }
         }
 
         protected void SetClipBasedOnWeapon(EquipWeapons equipWeapons)
