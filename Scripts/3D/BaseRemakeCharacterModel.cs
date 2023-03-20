@@ -480,6 +480,16 @@ namespace MultiplayerARPG
             return defaultAnimations.leftHandReloadAnimation;
         }
 
+        public override int GetRightHandAttackRandomMax(int dataId)
+        {
+            return GetRightHandAttackAnimations(dataId).Length;
+        }
+
+        public override int GetLeftHandAttackRandomMax(int dataId)
+        {
+            return GetLeftHandAttackAnimations(dataId).Length;
+        }
+
         public override bool GetRandomRightHandAttackAnimation(
             int dataId,
             int randomSeed,
