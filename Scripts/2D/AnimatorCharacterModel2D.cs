@@ -121,7 +121,7 @@ namespace MultiplayerARPG
 #endif
 
         public AnimatorOverrideController CacheAnimatorController { get; private set; }
-        public DirectionType2D DirectionType2D { get { return GameplayUtils.GetDirectionTypeByVector2(direction2D); } }
+        public DirectionType2D DirectionType2D { get { return GameplayUtils.GetDirectionTypeByVector2(Direction2D); } }
 
         private Coroutine actionCoroutine;
         private bool isSetupComponent;
@@ -276,7 +276,7 @@ namespace MultiplayerARPG
             if (animator.runtimeAnimatorController != CacheAnimatorController)
                 animator.runtimeAnimatorController = CacheAnimatorController;
 
-            if (isDead)
+            if (IsDead)
             {
                 // Clear action animations when dead
                 if (animator.GetBool(ANIM_DO_ACTION))
@@ -286,34 +286,34 @@ namespace MultiplayerARPG
             }
 
             float moveSpeed = 0f;
-            if (movementState.Has(MovementState.Forward) ||
-                movementState.Has(MovementState.Backward) ||
-                movementState.Has(MovementState.Right) ||
-                movementState.Has(MovementState.Left))
+            if (MovementState.Has(MovementState.Forward) ||
+                MovementState.Has(MovementState.Backward) ||
+                MovementState.Has(MovementState.Right) ||
+                MovementState.Has(MovementState.Left))
             {
-                if (extraMovementState == ExtraMovementState.IsSprinting)
+                if (ExtraMovementState == ExtraMovementState.IsSprinting)
                     moveSpeed = 2;
                 else
                     moveSpeed = 1;
             }
             // Set animator parameters
-            animator.SetFloat(ANIM_MOVE_SPEED, isDead ? 0 : moveSpeed);
-            animator.SetFloat(ANIM_MOVE_CLIP_MULTIPLIER, moveAnimationSpeedMultiplier);
+            animator.SetFloat(ANIM_MOVE_SPEED, IsDead ? 0 : moveSpeed);
+            animator.SetFloat(ANIM_MOVE_CLIP_MULTIPLIER, MoveAnimationSpeedMultiplier);
             // Fix stutter turning
             if (controllerType == AnimatorControllerType.FourDirections)
             {
-                if (Mathf.Abs(Mathf.Abs(direction2D.x) - Mathf.Abs(direction2D.y)) < 0.01f)
+                if (Mathf.Abs(Mathf.Abs(Direction2D.x) - Mathf.Abs(Direction2D.y)) < 0.01f)
                 {
                     // Up, Down is higher priority
-                    Vector2 applyDirection2D = direction2D;
+                    Vector2 applyDirection2D = Direction2D;
                     applyDirection2D.x = 0;
-                    direction2D = applyDirection2D.normalized;
+                    Direction2D = applyDirection2D.normalized;
                 }
             }
-            animator.SetFloat(ANIM_DIRECTION_X, direction2D.x);
-            animator.SetFloat(ANIM_DIRECTION_Y, direction2D.y);
-            animator.SetBool(ANIM_IS_DEAD, isDead);
-            if (isDead && Time.unscaledTime - awakenTime < 1f)
+            animator.SetFloat(ANIM_DIRECTION_X, Direction2D.x);
+            animator.SetFloat(ANIM_DIRECTION_Y, Direction2D.y);
+            animator.SetBool(ANIM_IS_DEAD, IsDead);
+            if (IsDead && Time.unscaledTime - awakenTime < 1f)
             {
                 AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
                 animator.Play(stateInfo.fullPathHash, 0, 1f);

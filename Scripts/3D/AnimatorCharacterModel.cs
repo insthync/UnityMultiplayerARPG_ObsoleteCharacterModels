@@ -632,7 +632,7 @@ namespace MultiplayerARPG
             if (animator.runtimeAnimatorController == null)
                 return;
 
-            if (isDead)
+            if (IsDead)
             {
                 // Clear action animations when dead
                 if (animator.GetBool(ANIM_DO_ACTION))
@@ -641,18 +641,18 @@ namespace MultiplayerARPG
                     animator.SetBool(ANIM_IS_CASTING_SKILL, false);
             }
 
-            float moveAnimationSpeedMultiplier = this.moveAnimationSpeedMultiplier;
+            float moveAnimationSpeedMultiplier = this.MoveAnimationSpeedMultiplier;
             float idleAnimationSpeedMultiplier;
 
             // Set move speed based on inputs
             bool moving = false;
             float moveSpeed = 0f;
-            if (movementState.Has(MovementState.Forward))
+            if (MovementState.Has(MovementState.Forward))
             {
                 moveSpeed = 1f;
                 moving = true;
             }
-            else if (movementState.Has(MovementState.Backward))
+            else if (MovementState.Has(MovementState.Backward))
             {
                 moveSpeed = -1f;
                 moving = true;
@@ -660,19 +660,19 @@ namespace MultiplayerARPG
 
             // Set side move speed based on inputs
             float sideMoveSpeed = 0f;
-            if (movementState.Has(MovementState.Right))
+            if (MovementState.Has(MovementState.Right))
             {
                 sideMoveSpeed = 1f;
                 moving = true;
             }
-            else if (movementState.Has(MovementState.Left))
+            else if (MovementState.Has(MovementState.Left))
             {
                 sideMoveSpeed = -1f;
                 moving = true;
             }
 
             int moveType = 0;
-            switch (extraMovementState)
+            switch (ExtraMovementState)
             {
                 case ExtraMovementState.IsCrouching:
                     moveType = 1;
@@ -702,7 +702,7 @@ namespace MultiplayerARPG
                     break;
             }
 
-            if (movementState.Has(MovementState.IsUnderWater))
+            if (MovementState.Has(MovementState.IsUnderWater))
             {
                 moveAnimationSpeedMultiplier *= swimMoveAnimSpeedRate;
                 idleAnimationSpeedMultiplier = swimIdleAnimSpeedRate;
@@ -719,10 +719,10 @@ namespace MultiplayerARPG
 
             // Set animator parameters
             float deltaTime = animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? Time.fixedDeltaTime : Time.deltaTime;
-            bool isUnderWater = movementState.Has(MovementState.IsUnderWater);
-            bool isGrounded = !isUnderWater && movementState.Has(MovementState.IsGrounded);
-            animator.SetFloat(ANIM_MOVE_SPEED, isDead ? 0 : moveSpeed, movementDampingTme, deltaTime);
-            animator.SetFloat(ANIM_SIDE_MOVE_SPEED, isDead ? 0 : sideMoveSpeed, movementDampingTme, deltaTime);
+            bool isUnderWater = MovementState.Has(MovementState.IsUnderWater);
+            bool isGrounded = !isUnderWater && MovementState.Has(MovementState.IsGrounded);
+            animator.SetFloat(ANIM_MOVE_SPEED, IsDead ? 0 : moveSpeed, movementDampingTme, deltaTime);
+            animator.SetFloat(ANIM_SIDE_MOVE_SPEED, IsDead ? 0 : sideMoveSpeed, movementDampingTme, deltaTime);
             animator.SetFloat(ANIM_MOVE_CLIP_MULTIPLIER, moveAnimationSpeedMultiplier);
             animator.SetFloat(ANIM_HURT_CLIP_MULTIPLIER, hurtAnimSpeedRate);
             animator.SetFloat(ANIM_DEAD_CLIP_MULTIPLIER, deadAnimSpeedRate);
@@ -730,8 +730,8 @@ namespace MultiplayerARPG
             animator.SetFloat(ANIM_FALL_CLIP_MULTIPLIER, fallAnimSpeedRate);
             animator.SetFloat(ANIM_LANDED_CLIP_MULTIPLIER, landedAnimSpeedRate);
             animator.SetFloat(ANIM_PICKUP_CLIP_MULTIPLIER, pickupAnimSpeedRate);
-            animator.SetBool(ANIM_IS_DEAD, isDead);
-            if (isDead && Time.unscaledTime - awakenTime < 1f)
+            animator.SetBool(ANIM_IS_DEAD, IsDead);
+            if (IsDead && Time.unscaledTime - awakenTime < 1f)
             {
                 AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
                 animator.Play(stateInfo.fullPathHash, 0, 1f);
@@ -739,7 +739,7 @@ namespace MultiplayerARPG
             animator.SetBool(ANIM_IS_GROUNDED, isGrounded);
             animator.SetBool(ANIM_IS_UNDER_WATER, isUnderWater);
             animator.SetInteger(ANIM_MOVE_TYPE, moveType);
-            animator.speed = isFreezeAnimation ? 0 : 1;
+            animator.speed = IsFreezeAnimation ? 0 : 1;
         }
 
         public override void PlayActionAnimation(AnimActionType animActionType, int dataId, int index, float playSpeedMultiplier = 1f)

@@ -626,7 +626,7 @@ namespace MultiplayerARPG
 
         public override void PlayMoveAnimation()
         {
-            if (isDead)
+            if (IsDead)
                 CrossFadeLegacyAnimation(CLIP_DEAD, deadClipFadeLength, WrapMode.Once);
             else
             {
@@ -635,12 +635,12 @@ namespace MultiplayerARPG
                 if (legacyAnimation.GetClip(CLIP_CAST_SKILL) != null && legacyAnimation.IsPlaying(CLIP_CAST_SKILL))
                     return;
 
-                if (movementState.Has(MovementState.IsUnderWater))
+                if (MovementState.Has(MovementState.IsUnderWater))
                 {
                     CrossFadeMoveAnimaton(CLIP_SWIM_IDLE, CLIP_SWIM_MOVE, CLIP_SWIM_MOVE_BACKWARD, CLIP_SWIM_MOVE_LEFT, CLIP_SWIM_MOVE_RIGHT,
                         CLIP_SWIM_MOVE_FORWARD_LEFT, CLIP_SWIM_MOVE_FORWARD_RIGHT, CLIP_SWIM_MOVE_BACKWARD_LEFT, CLIP_SWIM_MOVE_BACKWARD_RIGHT);
                 }
-                else if (!movementState.Has(MovementState.IsGrounded))
+                else if (!MovementState.Has(MovementState.IsGrounded))
                 {
                     CrossFadeLegacyAnimation(CLIP_FALL, fallClipFadeLength, WrapMode.Loop);
                     isLanded = false;
@@ -652,7 +652,7 @@ namespace MultiplayerARPG
                         PlayLandedAnimation();
                         isLanded = true;
                     }
-                    switch (extraMovementState)
+                    switch (ExtraMovementState)
                     {
                         case ExtraMovementState.IsSprinting:
                             CrossFadeMoveAnimaton(CLIP_IDLE, CLIP_SPRINT, CLIP_SPRINT_BACKWARD, CLIP_SPRINT_LEFT, CLIP_SPRINT_RIGHT,
@@ -685,28 +685,28 @@ namespace MultiplayerARPG
         string clipMoveBackwardLeft, string clipMoveBackwardRight)
         {
             // Forward Right
-            if (movementState.Has(MovementState.Forward) && movementState.Has(MovementState.Right))
+            if (MovementState.Has(MovementState.Forward) && MovementState.Has(MovementState.Right))
                 CrossFadeLegacyAnimation(clipMoveForwardRight, moveClipFadeLength, WrapMode.Loop);
             // Forward Left
-            else if (movementState.Has(MovementState.Forward) && movementState.Has(MovementState.Left))
+            else if (MovementState.Has(MovementState.Forward) && MovementState.Has(MovementState.Left))
                 CrossFadeLegacyAnimation(clipMoveForwardLeft, moveClipFadeLength, WrapMode.Loop);
             // Backward Right
-            else if (movementState.Has(MovementState.Backward) && movementState.Has(MovementState.Right))
+            else if (MovementState.Has(MovementState.Backward) && MovementState.Has(MovementState.Right))
                 CrossFadeLegacyAnimation(clipMoveBackwardRight, moveClipFadeLength, WrapMode.Loop);
             // Backward Left
-            else if (movementState.Has(MovementState.Backward) && movementState.Has(MovementState.Left))
+            else if (MovementState.Has(MovementState.Backward) && MovementState.Has(MovementState.Left))
                 CrossFadeLegacyAnimation(clipMoveBackwardLeft, moveClipFadeLength, WrapMode.Loop);
             // Forward
-            else if (movementState.Has(MovementState.Forward))
+            else if (MovementState.Has(MovementState.Forward))
                 CrossFadeLegacyAnimation(clipMove, moveClipFadeLength, WrapMode.Loop);
             // Backward
-            else if (movementState.Has(MovementState.Backward))
+            else if (MovementState.Has(MovementState.Backward))
                 CrossFadeLegacyAnimation(clipMoveBackward, moveClipFadeLength, WrapMode.Loop);
             // Right
-            else if (movementState.Has(MovementState.Right))
+            else if (MovementState.Has(MovementState.Right))
                 CrossFadeLegacyAnimation(clipMoveRight, moveClipFadeLength, WrapMode.Loop);
             // Left
-            else if (movementState.Has(MovementState.Left))
+            else if (MovementState.Has(MovementState.Left))
                 CrossFadeLegacyAnimation(clipMoveLeft, moveClipFadeLength, WrapMode.Loop);
             // Idle
             else
