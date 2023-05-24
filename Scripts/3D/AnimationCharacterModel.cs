@@ -501,9 +501,9 @@ namespace MultiplayerARPG
             CrossFadeLegacyAnimation(CLIP_IDLE, 0f, WrapMode.Loop);
         }
 
-        public override void SetEquipWeapons(IList<EquipWeapons> selectableWeaponSets, byte equipWeaponSet, bool isWeaponsSheathed)
+        public override void SetEquipItems(IList<CharacterItem> equipItems, IList<EquipWeapons> selectableWeaponSets, byte equipWeaponSet, bool isWeaponsSheathed)
         {
-            base.SetEquipWeapons(selectableWeaponSets, equipWeaponSet, isWeaponsSheathed);
+            base.SetEquipItems(equipItems, selectableWeaponSets, equipWeaponSet, isWeaponsSheathed);
             SetupComponent();
             if (isWeaponsSheathed || selectableWeaponSets == null || selectableWeaponSets.Count == 0)
             {

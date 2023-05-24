@@ -493,9 +493,9 @@ namespace MultiplayerARPG
             CacheAnimatorController[key] = clip;
         }
 
-        public override void SetEquipWeapons(IList<EquipWeapons> selectableWeaponSets, byte equipWeaponSet, bool isWeaponsSheathed)
+        public override void SetEquipItems(IList<CharacterItem> equipItems, IList<EquipWeapons> selectableWeaponSets, byte equipWeaponSet, bool isWeaponsSheathed)
         {
-            base.SetEquipWeapons(selectableWeaponSets, equipWeaponSet, isWeaponsSheathed);
+            base.SetEquipItems(equipItems, selectableWeaponSets, equipWeaponSet, isWeaponsSheathed);
             SetupComponent();
             if (isWeaponsSheathed || selectableWeaponSets == null || selectableWeaponSets.Count == 0)
             {
