@@ -6,7 +6,7 @@ using UnityEditor;
 
 namespace MultiplayerARPG
 {
-    public abstract partial class BaseRemakeCharacterModel : BaseCharacterModel
+    public abstract partial class BaseRemakeCharacterModel : BaseCharacterModel, IModelWithSkinnedMeshRenderer
     {
         // Clip name variables
         // Move
@@ -81,6 +81,7 @@ namespace MultiplayerARPG
         [Header("Renderer")]
         [Tooltip("This will be used to apply bone weights when equip an equipments")]
         public SkinnedMeshRenderer skinnedMeshRenderer;
+        public SkinnedMeshRenderer SkinnedMeshRenderer => skinnedMeshRenderer;
 
         [Header("Animations")]
         public DefaultAnimations defaultAnimations;
@@ -355,31 +356,9 @@ namespace MultiplayerARPG
             }
         }
 
-        public override void AddingNewModel(EquipmentModel data, GameObject newModel, EquipmentContainer equipmentContainer)
-        {
-            base.AddingNewModel(data, newModel, equipmentContainer);
-            if (data.doNotUseEntityBones)
-                return;
-            SkinnedMeshRenderer skinnedMesh = newModel.GetComponentInChildren<SkinnedMeshRenderer>();
-            if (skinnedMesh != null && skinnedMeshRenderer != null)
-            {
-                skinnedMesh.bones = skinnedMeshRenderer.bones;
-                skinnedMesh.rootBone = skinnedMeshRenderer.rootBone;
-                if (equipmentContainer.defaultModel != null)
-                {
-                    SkinnedMeshRenderer defaultSkinnedMesh = equipmentContainer.defaultModel.GetComponentInChildren<SkinnedMeshRenderer>();
-                    if (defaultSkinnedMesh != null)
-                    {
-                        skinnedMesh.bones = defaultSkinnedMesh.bones;
-                        skinnedMesh.rootBone = defaultSkinnedMesh.rootBone;
-                    }
-                }
-            }
-        }
-
         public ActionAnimation GetActionAnimation(AnimActionType animActionType, int dataId, int index)
         {
-            ActionAnimation tempActionAnimation = default(ActionAnimation);
+            ActionAnimation tempActionAnimation = default;
             switch (animActionType)
             {
                 case AnimActionType.AttackRightHand:

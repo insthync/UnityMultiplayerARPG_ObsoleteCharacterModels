@@ -9,7 +9,7 @@ using UnityEditor;
 
 namespace MultiplayerARPG
 {
-    public partial class AnimatorCharacterModel : BaseRemakeCharacterModel
+    public partial class AnimatorCharacterModel : BaseRemakeCharacterModel, IModelWithAnimator
     {
         public enum AnimatorControllerType
         {
@@ -49,6 +49,7 @@ namespace MultiplayerARPG
         [Header("Relates Components")]
         [Tooltip("It will find `Animator` component on automatically if this is NULL")]
         public Animator animator;
+        public Animator Animator => animator;
         [Tooltip("You can set this when animator controller type is `Custom`")]
         public RuntimeAnimatorController animatorController;
 
