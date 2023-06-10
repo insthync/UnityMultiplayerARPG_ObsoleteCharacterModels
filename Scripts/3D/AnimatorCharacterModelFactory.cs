@@ -4,7 +4,7 @@ namespace MultiplayerARPG
 {
     public class AnimatorCharacterModelFactory : ICharacterModelFactory
     {
-        public string Name => "Animator Character Model";
+        public string Name => "Animator Character Model (Obsolete)";
         public DimensionType DimensionType => DimensionType.Dimension3D;
 
         public AnimatorCharacterModelFactory()
