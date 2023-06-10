@@ -9,6 +9,7 @@ using UnityEditor;
 
 namespace MultiplayerARPG
 {
+    [System.Obsolete("Should use `PlayableCharacterModel` instead, can convert by \"Convert To Playable Character Model\" menu.")]
     public partial class AnimatorCharacterModel : BaseRemakeCharacterModel, IModelWithAnimator
     {
         public enum AnimatorControllerType
