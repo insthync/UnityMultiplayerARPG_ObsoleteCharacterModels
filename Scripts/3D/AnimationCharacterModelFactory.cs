@@ -26,7 +26,9 @@ namespace MultiplayerARPG
 
         public BaseCharacterModel Setup(GameObject obj)
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             AnimationCharacterModel characterModel = obj.AddComponent<AnimationCharacterModel>();
+#pragma warning restore CS0618 // Type or member is obsolete
             characterModel.legacyAnimation = obj.GetComponentInChildren<Animation>();
             return characterModel;
         }

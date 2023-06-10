@@ -39,6 +39,7 @@ namespace MultiplayerARPG
                         EditorGUILayout.HelpBox("Destination character model which you want to paste to, must be `AnimationCharacterModel` or `AnimatorCharacterModel`", MessageType.Info);
                     dstModel = EditorGUILayout.ObjectField("Destination", dstModel, typeof(BaseRemakeCharacterModel), true, GUILayout.ExpandWidth(true)) as BaseRemakeCharacterModel;
 
+#pragma warning disable CS0618 // Type or member is obsolete
                     if (srcModel is AnimatorCharacterModel &&
                         dstModel is AnimatorCharacterModel &&
                         (srcModel as AnimatorCharacterModel).animator != null &&
@@ -56,6 +57,7 @@ namespace MultiplayerARPG
                         cloneEquipmentContainers = false;
                         cloneHitboxes = false;
                     }
+#pragma warning restore CS0618 // Type or member is obsolete
                     cloneDefaultAnimations = EditorGUILayout.Toggle("Clone Default Animations", cloneDefaultAnimations);
                     cloneWeaponAnimations = EditorGUILayout.Toggle("Clone Weapon Animations", cloneWeaponAnimations);
                     cloneSkillAnimations = EditorGUILayout.Toggle("Clone Skill Animations", cloneSkillAnimations);
@@ -85,7 +87,9 @@ namespace MultiplayerARPG
                     HumanBodyBones bone;
                     Transform cloneSrc;
                     List<int> childIndexes;
+#pragma warning disable CS0618 // Type or member is obsolete
                     FindBoneAndRootContainer(srcModel.transform.root, (srcModel as AnimatorCharacterModel).animator, srcModel.EquipmentContainers[i].transform, out isRootTransform, out bone, out cloneSrc, out childIndexes);
+#pragma warning restore CS0618 // Type or member is obsolete
                     if (cloneSrc != null)
                     {
                         if (isRootTransform)
@@ -94,7 +98,9 @@ namespace MultiplayerARPG
                         }
                         else
                         {
+#pragma warning disable CS0618 // Type or member is obsolete
                             newObj = Instantiate(cloneSrc.gameObject, (dstModel as AnimatorCharacterModel).animator.GetBoneTransform(bone));
+#pragma warning restore CS0618 // Type or member is obsolete
                         }
                         newObj.transform.localPosition = cloneSrc.localPosition;
                         newObj.transform.localEulerAngles = cloneSrc.localEulerAngles;
@@ -122,7 +128,9 @@ namespace MultiplayerARPG
                     HumanBodyBones bone;
                     Transform cloneSrc;
                     List<int> childIndexes;
+#pragma warning disable CS0618 // Type or member is obsolete
                     FindBoneAndRootContainer(srcModel.transform.root, (srcModel as AnimatorCharacterModel).animator, srcModel.EquipmentContainers[i].transform, out isRootTransform, out bone, out cloneSrc, out childIndexes);
+#pragma warning restore CS0618 // Type or member is obsolete
                     if (cloneSrc != null)
                     {
                         if (isRootTransform)
@@ -131,7 +139,9 @@ namespace MultiplayerARPG
                         }
                         else
                         {
+#pragma warning disable CS0618 // Type or member is obsolete
                             newObj = Instantiate(cloneSrc.gameObject, (dstModel as AnimatorCharacterModel).animator.GetBoneTransform(bone));
+#pragma warning restore CS0618 // Type or member is obsolete
                         }
                         newObj.transform.localPosition = cloneSrc.localPosition;
                         newObj.transform.localEulerAngles = cloneSrc.localEulerAngles;
@@ -158,7 +168,9 @@ namespace MultiplayerARPG
                     bool isRootTransform;
                     HumanBodyBones bone;
                     Transform cloneSrc;
+#pragma warning disable CS0618 // Type or member is obsolete
                     FindBoneAndRootContainer(srcModel.transform.root, (srcModel as AnimatorCharacterModel).animator, hitBoxes[i].transform, out isRootTransform, out bone, out cloneSrc, out _);
+#pragma warning restore CS0618 // Type or member is obsolete
                     if (cloneSrc != null)
                     {
                         if (isRootTransform)
@@ -167,7 +179,9 @@ namespace MultiplayerARPG
                         }
                         else
                         {
+#pragma warning disable CS0618 // Type or member is obsolete
                             newObj = Instantiate(cloneSrc.gameObject, (dstModel as AnimatorCharacterModel).animator.GetBoneTransform(bone));
+#pragma warning restore CS0618 // Type or member is obsolete
                         }
                         newObj.transform.localPosition = cloneSrc.localPosition;
                         newObj.transform.localEulerAngles = cloneSrc.localEulerAngles;

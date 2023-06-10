@@ -7,6 +7,7 @@ using UnityEditor;
 
 namespace MultiplayerARPG
 {
+    [System.Obsolete("Should use `PlayableCharacterModel` instead.")]
     public partial class AnimationCharacterModel : BaseRemakeCharacterModel
     {
         [Header("Settings")]
