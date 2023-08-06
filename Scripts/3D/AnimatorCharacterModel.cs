@@ -720,7 +720,11 @@ namespace MultiplayerARPG
             }
 
             // Set animator parameters
+#if UNITY_2023_1_OR_NEWER
+            float deltaTime = animator.updateMode == AnimatorUpdateMode.Fixed ? Time.fixedDeltaTime : Time.deltaTime;
+#else
             float deltaTime = animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? Time.fixedDeltaTime : Time.deltaTime;
+#endif
             bool isUnderWater = MovementState.Has(MovementState.IsUnderWater);
             bool isGrounded = !isUnderWater && MovementState.Has(MovementState.IsGrounded);
             animator.SetFloat(ANIM_MOVE_SPEED, IsDead ? 0 : moveSpeed, movementDampingTme, deltaTime);
