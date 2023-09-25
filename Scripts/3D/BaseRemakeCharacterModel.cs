@@ -477,10 +477,11 @@ namespace MultiplayerARPG
             out int animationIndex,
             out float animSpeedRate,
             out float[] triggerDurations,
-            out float totalDuration)
+            out float totalDuration,
+            out bool skipMovementValidation)
         {
             animationIndex = GenericUtils.RandomInt(randomSeed, 0, GetRightHandAttackAnimations(dataId).Length);
-            return GetRightHandAttackAnimation(dataId, animationIndex, out animSpeedRate, out triggerDurations, out totalDuration);
+            return GetRightHandAttackAnimation(dataId, animationIndex, out animSpeedRate, out triggerDurations, out totalDuration, out skipMovementValidation);
         }
 
         public override bool GetRandomLeftHandAttackAnimation(
@@ -489,10 +490,11 @@ namespace MultiplayerARPG
             out int animationIndex,
             out float animSpeedRate,
             out float[] triggerDurations,
-            out float totalDuration)
+            out float totalDuration,
+            out bool skipMovementValidation)
         {
             animationIndex = GenericUtils.RandomInt(randomSeed, 0, GetLeftHandAttackAnimations(dataId).Length);
-            return GetLeftHandAttackAnimation(dataId, animationIndex, out animSpeedRate, out triggerDurations, out totalDuration);
+            return GetLeftHandAttackAnimation(dataId, animationIndex, out animSpeedRate, out triggerDurations, out totalDuration, out skipMovementValidation);
         }
 
         public override bool GetRightHandAttackAnimation(
@@ -500,16 +502,19 @@ namespace MultiplayerARPG
             int animationIndex,
             out float animSpeedRate,
             out float[] triggerDurations,
-            out float totalDuration)
+            out float totalDuration,
+            out bool skipMovementValidation)
         {
             ActionAnimation[] tempActionAnimations = GetRightHandAttackAnimations(dataId);
             animSpeedRate = 1f;
             triggerDurations = new float[] { 0f };
             totalDuration = 0f;
+            skipMovementValidation = false;
             if (tempActionAnimations.Length == 0 || animationIndex >= tempActionAnimations.Length) return false;
             animSpeedRate = tempActionAnimations[animationIndex].GetAnimSpeedRate();
             triggerDurations = tempActionAnimations[animationIndex].GetTriggerDurations();
             totalDuration = tempActionAnimations[animationIndex].GetTotalDuration();
+            skipMovementValidation = tempActionAnimations[animationIndex].skipMovementValidation;
             return true;
         }
 
@@ -518,16 +523,19 @@ namespace MultiplayerARPG
             int animationIndex,
             out float animSpeedRate,
             out float[] triggerDurations,
-            out float totalDuration)
+            out float totalDuration,
+            out bool skipMovementValidation)
         {
             ActionAnimation[] tempActionAnimations = GetLeftHandAttackAnimations(dataId);
             animSpeedRate = 1f;
             triggerDurations = new float[] { 0f };
             totalDuration = 0f;
+            skipMovementValidation = false;
             if (tempActionAnimations.Length == 0 || animationIndex >= tempActionAnimations.Length) return false;
             animSpeedRate = tempActionAnimations[animationIndex].GetAnimSpeedRate();
             triggerDurations = tempActionAnimations[animationIndex].GetTriggerDurations();
             totalDuration = tempActionAnimations[animationIndex].GetTotalDuration();
+            skipMovementValidation = tempActionAnimations[animationIndex].skipMovementValidation;
             return true;
         }
 
@@ -535,12 +543,14 @@ namespace MultiplayerARPG
             int dataId,
             out float animSpeedRate,
             out float[] triggerDurations,
-            out float totalDuration)
+            out float totalDuration,
+            out bool skipMovementValidation)
         {
             ActionAnimation tempActionAnimation = GetSkillActivateAnimation(dataId);
             animSpeedRate = tempActionAnimation.GetAnimSpeedRate();
             triggerDurations = tempActionAnimation.GetTriggerDurations();
             totalDuration = tempActionAnimation.GetTotalDuration();
+            skipMovementValidation = tempActionAnimation.skipMovementValidation;
             return true;
         }
 
@@ -548,12 +558,14 @@ namespace MultiplayerARPG
             int dataId,
             out float animSpeedRate,
             out float[] triggerDurations,
-            out float totalDuration)
+            out float totalDuration,
+            out bool skipMovementValidation)
         {
             ActionAnimation tempActionAnimation = GetRightHandReloadAnimation(dataId);
             animSpeedRate = tempActionAnimation.GetAnimSpeedRate();
             triggerDurations = tempActionAnimation.GetTriggerDurations();
             totalDuration = tempActionAnimation.GetTotalDuration();
+            skipMovementValidation = tempActionAnimation.skipMovementValidation;
             return true;
         }
 
@@ -561,12 +573,14 @@ namespace MultiplayerARPG
             int dataId,
             out float animSpeedRate,
             out float[] triggerDurations,
-            out float totalDuration)
+            out float totalDuration,
+            out bool skipMovementValidation)
         {
             ActionAnimation tempActionAnimation = GetLeftHandReloadAnimation(dataId);
             animSpeedRate = tempActionAnimation.GetAnimSpeedRate();
             triggerDurations = tempActionAnimation.GetTriggerDurations();
             totalDuration = tempActionAnimation.GetTotalDuration();
+            skipMovementValidation = tempActionAnimation.skipMovementValidation;
             return true;
         }
 
