@@ -748,8 +748,10 @@ namespace MultiplayerARPG
             animator.speed = IsFreezeAnimation ? 0 : 1;
         }
 
-        public override void PlayActionAnimation(AnimActionType animActionType, int dataId, int index, float playSpeedMultiplier = 1f)
+        public override void PlayActionAnimation(AnimActionType animActionType, int dataId, int index, out bool skipMovementValidation, out bool shouldUseRootMotion, float playSpeedMultiplier = 1f)
         {
+            skipMovementValidation = false;
+            shouldUseRootMotion = false;
             StopActionAnimation();
             StopSkillCastAnimation();
             StopWeaponChargeAnimation();
@@ -793,8 +795,10 @@ namespace MultiplayerARPG
             isDoingAction = false;
         }
 
-        public override void PlaySkillCastClip(int dataId, float duration)
+        public override void PlaySkillCastClip(int dataId, float duration, out bool skipMovementValidation, out bool shouldUseRootMotion)
         {
+            skipMovementValidation = false;
+            shouldUseRootMotion = false;
             StopActionAnimation();
             StopSkillCastAnimation();
             StopWeaponChargeAnimation();
@@ -836,8 +840,10 @@ namespace MultiplayerARPG
             isDoingAction = false;
         }
 
-        public override void PlayWeaponChargeClip(int dataId, bool isLeftHand)
+        public override void PlayWeaponChargeClip(int dataId, bool isLeftHand, out bool skipMovementValidation, out bool shouldUseRootMotion)
         {
+            skipMovementValidation = false;
+            shouldUseRootMotion = false;
             StopActionAnimation();
             StopSkillCastAnimation();
             StopWeaponChargeAnimation();
