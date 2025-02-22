@@ -1009,7 +1009,9 @@ namespace MultiplayerARPG
                 durationType = actionAnimation.durationType,
                 fixedDuration = actionAnimation.fixedDuration,
                 extendDuration = actionAnimation.extendDuration,
+#if !EXCLUDE_PREFAB_REFS
                 audioClips = actionAnimation.audioClips,
+#endif
             };
         }
 
@@ -1811,5 +1813,5 @@ namespace MultiplayerARPG
             EditorUtility.SetDirty(model);
         }
 #endif
-    }
+            }
 }
